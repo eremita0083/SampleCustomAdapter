@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +57,7 @@ public class MainActivity extends Activity {
 
 }
 
+//CustomAdapter
 class MyCustomAdapter extends ArrayAdapter<DTO>{
 	private int resourceId;
 
@@ -66,22 +68,28 @@ class MyCustomAdapter extends ArrayAdapter<DTO>{
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		//まずinflateする
 		convertView = View.inflate(getContext(), resourceId, null);
 		
+		//converviewのfindView---
 		TextView name = (TextView) convertView.findViewById(R.id.name);
 		TextView number = (TextView) convertView.findViewById(R.id.number);
 		TextView gender = (TextView) convertView.findViewById(R.id.gender);
 		
+		//position番目のitemを取得
 		DTO item = getItem(position);
 		
 		String nameStr = item.getName();
 		int numInt = item.getNumber();
-		String genderStr;
-		if( 0 == item.getGender()){
+		String genderStr = 0==item.getGender() ? "男" : "女";
+		/*if( 0 == item.getGender()){
 			genderStr = "男";
 		}else{
 			genderStr = "女";
-		}
+		}*/
+		Log.i("getView MCA",genderStr);
+		
+		//TextViewに貼り付け
 		number.setText(numInt+"");
 		name.setText(nameStr);
 		gender.setText(genderStr);
